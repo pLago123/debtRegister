@@ -20,13 +20,24 @@ export const FormTitle = styled.h3`
 
 interface ButtonsControlGroupProps {
   loading: string;
+  method: 'put' | 'post';
 }
 
 export const ButtonsControlGroup = styled.div<ButtonsControlGroupProps>`
   display: flex;
   justify-content: flex-end;
+
+  ${props =>
+    props.method === 'post' &&
+    css`
+      & > :first-child {
+        display: none;
+      }
+    `}
+
   ${props =>
     props.loading === 'true' &&
+    props.method === 'post' &&
     css`
       & > :first-child {
         display: none;
@@ -41,6 +52,7 @@ export const ButtonsControlGroup = styled.div<ButtonsControlGroupProps>`
         transition: all 0.3s;
       }
     `}
+
   @media screen and (max-width: 725px) {
     margin-top: 50px;
     justify-content: space-between;

@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { Container, TopMenu, UserButton, UserListWrapper } from './styles';
 import useUserData from '../../../../hooks/useUserData';
+import Input from '../../../../components/Input';
 
 interface UserData {
   id: number;
@@ -17,6 +18,7 @@ const UsersList: React.FC = () => {
   const history = useHistory();
   const { id } = useParams<RouteParams>();
   const { users, activeUser, selectUser } = useUserData();
+  const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const targetRef = useRef<HTMLButtonElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -43,6 +45,19 @@ const UsersList: React.FC = () => {
     setOpen(!open);
   }, [open]);
 
+  const handleUpdateQuery = useCallback((e: FormEvent<HTMLInputElement>) => {
+    setQuery(e.currentTarget.value);
+  }, []);
+
+  const handleSearch = useCallback(
+    (data: UserData[]) => {
+      return data.filter(
+        user => user.name.toLowerCase().indexOf(query.toLowerCase()) >= 0,
+      );
+    },
+    [query],
+  );
+
   return (
     <Container ref={containerRef}>
       <TopMenu>
@@ -52,7 +67,15 @@ const UsersList: React.FC = () => {
         </button>
       </TopMenu>
       <UserListWrapper isOpen={open.toString()}>
-        {users.map(user => (
+        <div style={{ marginBottom: 20 }}>
+          <Input
+            name="field"
+            type="text"
+            placeholder="Busque por qualquer nome"
+            onChange={handleUpdateQuery}
+          />
+        </div>
+        {handleSearch(users).map(user => (
           <UserButton
             type="button"
             active={user.id === activeUser.id}

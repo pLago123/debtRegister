@@ -42,9 +42,9 @@ interface UserListWrapperProps {
 export const UserListWrapper = styled.div<UserListWrapperProps>`
   display: flex;
   flex-direction: column;
-  align-self: center;
+  // align-self: center;
   padding: 25px 20px;
-  width: 245px;
+  min-width: 245px;
 
   @media screen and (max-width: 706px) {
     overflow: hidden;

@@ -162,16 +162,14 @@ const DebtForm: React.FC<DebtFormProps> = ({ method }) => {
           />
         </FormControlGroup>
 
-        <ButtonsControlGroup loading={loading.toString()}>
-          {method !== 'post' && (
-            <Button
-              color="#f44336"
-              type="button"
-              onClick={() => handleDeleteDebt()}
-            >
-              Deletar
-            </Button>
-          )}
+        <ButtonsControlGroup loading={loading.toString()} method={method}>
+          <Button
+            color="#f44336"
+            type="button"
+            onClick={() => handleDeleteDebt()}
+          >
+            Deletar
+          </Button>
           <Button color="#e7b057" type="submit">
             {loading ? <Loader size={16} color="#fff" /> : 'Enviar'}
           </Button>

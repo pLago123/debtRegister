@@ -32,10 +32,17 @@ const UserProvider: React.FC = ({ children }) => {
     const getUsers = async (): Promise<void> => {
       try {
         const { data } = await usersApi.get('/');
-        setUsersData(data);
+
+        const sortedUsersList = data.sort((first: User, next: User) => {
+          if (first.name > next.name) return 1;
+          if (first.name < next.name) return -1;
+          return 0;
+        });
+
+        setUsersData(sortedUsersList);
+
         setLoading(false);
       } catch (err) {
-        // console.warn(err.status, err.message);
         addToast({
           title: 'Erro!',
           description: 'Não foi possível buscar dados dos usuários',
