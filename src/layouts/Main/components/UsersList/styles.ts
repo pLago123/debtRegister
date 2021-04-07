@@ -42,7 +42,6 @@ interface UserListWrapperProps {
 export const UserListWrapper = styled.div<UserListWrapperProps>`
   display: flex;
   flex-direction: column;
-  // align-self: center;
   padding: 25px 20px;
   min-width: 245px;
 

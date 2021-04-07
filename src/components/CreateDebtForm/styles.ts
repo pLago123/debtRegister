@@ -37,7 +37,6 @@ export const ButtonsControlGroup = styled.div<ButtonsControlGroupProps>`
 
   ${props =>
     props.loading === 'true' &&
-    props.method === 'post' &&
     css`
       & > :first-child {
         display: none;
