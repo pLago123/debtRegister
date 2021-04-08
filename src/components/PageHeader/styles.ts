@@ -45,6 +45,7 @@ export const HeaderImage = styled.div`
   display: flex;
 
   img {
+    max-height: 300px;
     width: 100%;
     max-width: 400px;
     margin-left: auto;
